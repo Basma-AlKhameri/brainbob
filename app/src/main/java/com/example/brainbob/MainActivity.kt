@@ -37,7 +37,7 @@ fun nav() {
             FirstScreen(navController = navController)
         }
         composable(NavRoutes.SecondScreen.route) {
-            SecondScreen(navController = navController)
+            SecondScreen()
         }
     }
 }

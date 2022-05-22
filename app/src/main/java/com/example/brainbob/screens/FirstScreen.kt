@@ -6,7 +6,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.MaterialTheme.typography
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -18,7 +17,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.brainbob.NavRoutes
 import com.example.brainbob.R
@@ -46,7 +44,6 @@ fun FirstScreen(navController: NavController) {
                     )
                 }
             }
-
             Box(
                 Modifier
                     .fillMaxWidth()
@@ -57,8 +54,7 @@ fun FirstScreen(navController: NavController) {
                     Text(
                         text = "Be ready to learn English easily",
                         textAlign = TextAlign.Center,
-                        fontSize = 40.sp
-                        // style = typography.h1
+                         style = typography.h1
                     )
 
                     Text(
@@ -73,8 +69,7 @@ fun FirstScreen(navController: NavController) {
             Box(Modifier.padding(16.dp), contentAlignment = Alignment.BottomCenter) {
                 Button(shape = RoundedCornerShape(40.dp),
                     onClick = { navController.navigate(NavRoutes.SecondScreen.route) }
-                ) {
-                    Text(
+                ) { Text(
                         text = "Join us",
                         style = typography.button,
                         modifier = Modifier.padding(8.dp)
