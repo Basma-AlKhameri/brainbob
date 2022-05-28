@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/TOSHIBA/AndroidStudioProjects/brainbob/app/src/main/res/drawable/chat.xml" value="0.1445" />
+        <entry key="..\:/Users/TOSHIBA/AndroidStudioProjects/brainbob/app/src/main/res/drawable/ic_baseline_play_circle_filled_24.xml" value="0.13" />
         <entry key="..\:/Users/TOSHIBA/AndroidStudioProjects/brainbob/app/src/main/res/drawable/ic_person.xml" value="0.1265" />
+        <entry key="..\:/Users/TOSHIBA/AndroidStudioProjects/brainbob/app/src/main/res/drawable/ic_person_white.xml" value="0.13" />
         <entry key="..\:/Users/TOSHIBA/AndroidStudioProjects/brainbob/app/src/main/res/font/font.xml" value="0.22666666666666666" />
       </map>
     </option>

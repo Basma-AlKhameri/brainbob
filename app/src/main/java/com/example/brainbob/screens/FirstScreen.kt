@@ -11,6 +11,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -62,6 +63,7 @@ fun FirstScreen(navController: NavController) {
                                 " improve your language with Brainbob",
                         textAlign = TextAlign.Center,
                         style = typography.body2,
+                        color= Color.Gray,
                         modifier = Modifier.padding(top = 16.dp)
                     )
                 }
