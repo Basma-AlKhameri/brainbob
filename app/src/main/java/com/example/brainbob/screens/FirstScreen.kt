@@ -24,63 +24,85 @@ import com.example.brainbob.R
 
 @Composable
 fun FirstScreen(navController: NavController) {
-    Box(Modifier.fillMaxSize()
-        .verticalScroll(rememberScrollState())
+    Box(
+        Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
     ) {
 
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            logo()
+            image()
+            text()
+            button(navController)
 
-            Box() {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-
-                    Image(
-                        painter = painterResource(id = R.drawable.logo),
-                        contentDescription = "",
-                        Modifier.size(width = 150.dp, height = 100.dp)
-                    )
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_person),
-                        contentDescription = "",
-                        Modifier.padding(top = 24.dp)
-                    )
-                }
-            }
-            Box(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp)
-                    .padding(top = 16.dp)
-            ) {
-                Column() {
-                    Text(
-                        text = "Be ready to learn English easily",
-                        textAlign = TextAlign.Center,
-                         style = typography.h1
-                    )
-
-                    Text(
-                        text = "Listen to stories, watch videos and" +
-                                " improve your language with Brainbob",
-                        textAlign = TextAlign.Center,
-                        style = typography.body2,
-                        color= Color.Gray,
-                        modifier = Modifier.padding(top = 16.dp)
-                    )
-                }
-            }
-            Box(Modifier.padding(16.dp), contentAlignment = Alignment.BottomCenter) {
-                Button(shape = RoundedCornerShape(40.dp),
-                    onClick = { navController.navigate(NavRoutes.SecondScreen.route) }
-                ) { Text(
-                        text = "Join us",
-                        style = typography.button,
-                        modifier = Modifier.padding(8.dp)
-                    )
-                }
-            }
         }
     }
+}
 
+@Composable
+fun logo() {
+    Box(Modifier.fillMaxWidth(),contentAlignment= Alignment.Center ) {
+        Image(
+            painter = painterResource(id = R.drawable.logo),
+            contentDescription = "",
+            Modifier
+                .size(width = 150.dp, height = 100.dp))
+    }
+}
+
+@Composable
+fun image() {
+    Box(Modifier.fillMaxWidth().padding(16.dp),contentAlignment= Alignment.Center) {
+
+        Image(
+            painter = painterResource(id = R.drawable.ic_person),
+            contentDescription = "",
+            alignment = Alignment.Center
+        )
+    }
+}
+
+@Composable
+fun text() {
+    Box(
+        Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+            .padding(top = 16.dp)
+    ) {
+        Column() {
+            Text(
+                text = "Be ready to learn English easily",
+                textAlign = TextAlign.Center,
+                style = typography.h1
+            )
+
+            Text(
+                text = "Listen to stories, watch videos and" +
+                        " improve your language with Brainbob",
+                textAlign = TextAlign.Center,
+                style = typography.body2,
+                color = Color.Gray,
+                modifier = Modifier.padding(top = 16.dp)
+            )
+        }
+    }
+}
+
+@Composable
+fun button(navController: NavController) {
+    Box(Modifier.padding(16.dp), contentAlignment = Alignment.BottomCenter) {
+        Button(shape = RoundedCornerShape(40.dp),
+            onClick = { navController.navigate(NavRoutes.SecondScreen.route) }
+        ) {
+            Text(
+                text = "Join us",
+                style = typography.button,
+                modifier = Modifier.padding(8.dp)
+            )
+        }
+    }
 }
 
 

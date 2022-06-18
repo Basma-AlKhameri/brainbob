@@ -1,22 +1,16 @@
 package com.example.brainbob.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Card
+import androidx.compose.material.*
 import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.MaterialTheme.typography
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,8 +21,6 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.brainbob.DataClass.Recommendation
-import com.example.brainbob.DataClass.Tags
 import com.example.brainbob.R
 
 @Composable
@@ -69,28 +61,33 @@ fun Header() {
 
 @Composable
 fun TagList() {
-    val tagList = listOf(
-        Tags("Brainstorm"), Tags("Books"),
-        Tags("Video"), Tags("Images")
-    )
+    var selectedItem by remember { mutableStateOf(0) }
+
+    val tagList = listOf("Brainstorm", "Books", "Video", "Images")
 
     LazyRow(Modifier.padding(top = 8.dp)) {
-        items(tagList) { Tags ->
-            tagCard(Tags.tagName)
+        items(tagList.size) {
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+                    .clickable { selectedItem = it },
+                backgroundColor = if (selectedItem == it) Color.Black else Color.Gray,
+                shape = RoundedCornerShape(40.dp),
+            ) {
+                Text(
+                    text = tagList[it],
+                    color = if (selectedItem==it) Color.White else Color.Black
+                    , style = typography.subtitle2,
+                    modifier = Modifier.padding(
+                        start = 32.dp,
+                        end = 32.dp,
+                        top = 16.dp,
+                        bottom = 16.dp
+                    )
+                )
+            }
         }
-    }
-}
-
-@Composable
-fun tagCard(tag: String) {
-    Card(modifier = Modifier
-        .fillMaxWidth()
-        .padding(8.dp),
-        backgroundColor = Color.Gray, shape = RoundedCornerShape(40.dp)) {
-        Text(
-            text = tag, style = typography.subtitle2,
-            modifier = Modifier.padding(start = 32.dp, end = 32.dp, top = 16.dp, bottom = 16.dp)
-        )
     }
 }
 
@@ -152,61 +149,86 @@ fun MainCard() {
     }
 }
 
+
 @Composable
 fun Recommended() {
-    var RecList = listOf(
-        Recommendation("Chatting", "5 minutes", R.drawable.chat),
-        Recommendation("Listen", "2 minutes", R.drawable.headset),
-        Recommendation("Speak", "3 minutes", R.drawable.mic)
-    )
+    var itemSelected by remember { mutableStateOf(0) }
+
+
+    var RecList = listOf("Chatting", "Listen", "Speak")
+    var minList = listOf("5 minutes", "2 minutes", "3 minutes")
+    var iconList = listOf(R.drawable.chat, R.drawable.headset, R.drawable.mic)
+    val colors = listOf(
+        Color(0xFFF56D63),
+        Color(0xFF493EAA),
+        Color(0xFFED8658))
+
     Column() {
         Text(
             text = "Recommended", style = typography.h2,
-            modifier = Modifier.padding(start= 8.dp, top=16.dp, bottom= 16.dp)
+            modifier = Modifier.padding(start = 8.dp, top = 16.dp, bottom = 16.dp)
         )
 
         LazyColumn(Modifier.fillMaxWidth()) {
 
-            items(RecList) { Recommendation ->
-                RecommendationCard(
-                    Recommendation.type, Recommendation.min, Recommendation.icon
-                )
+            items(RecList.size) {
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp).
+                    clickable { itemSelected=it},
+                    shape = RoundedCornerShape(15.dp),
+                    backgroundColor = Color.LightGray
+                ) {
+                    Row(modifier = Modifier.padding(8.dp)) {
+                        Card(
+                            modifier = Modifier.padding(8.dp),
+                            backgroundColor = colors[it]
+                        ) {
+                            Icon(
+                                painter = painterResource(id = iconList[it]),
+                                contentDescription = "",
+                                Modifier
+                                    .padding(8.dp)
+                                    .background(colors[it]),
+                                tint = Color.White
+
+                            )
+                        }
+                        Column(modifier = Modifier.padding(8.dp)) {
+                            Text(
+                                text = RecList[it],
+                                style = TextStyle(
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 16.sp
+                                )
+                            )
+                            Text(
+                                text = minList[it],
+                                style = TextStyle(
+                                    fontWeight = FontWeight.Light,
+                                    fontSize = 16.sp
+                                )
+                            )
+                        }
+
+                        Box(
+                            Modifier
+                                .fillMaxWidth()
+                                .padding(top = 16.dp, start = 8.dp),
+                            contentAlignment = Alignment.CenterEnd
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.bookmark),
+                                contentDescription = "",
+                                tint= if(itemSelected==it) Color.Black else Color.Gray
+                            )
+                        }
+
+                    }
+                }
             }
         }
-    }
-}
-@Composable
-fun RecommendationCard(type: String, minutes: String, image: Int) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp),
-        shape = RoundedCornerShape(15.dp), backgroundColor = Color.LightGray
-    ) {
-        Row(modifier = Modifier.padding(8.dp)) {
-            Image(
-                painter = painterResource(id = image), contentDescription = "",
-                Modifier.padding(top = 16.dp)
-            )
-
-            Column(modifier = Modifier.padding(8.dp)) {
-                Text(
-                    text = type,
-                    style = TextStyle(
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 16.sp
-                    )
-                )
-                Text(
-                    text = minutes,
-                    style = TextStyle(
-                        fontWeight = FontWeight.Light,
-                        fontSize = 16.sp
-                    )
-                )
-            }
-        }
-
     }
 }
 
